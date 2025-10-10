@@ -4,6 +4,9 @@
 focus on MIC analysis. Any removed functions will be ported to a new package
 that focuses on machine learning with genomic data, so the only change for users
 will be to install and load a new package.
+* Functions that download data from PATRIC/BV-BRC have now been updated to
+support changes in BV-BRC ftp.
+
 
 * Functionality added to handle <= and => in MIC values, distinguishing them from
 < and >. In general, inhibitory MIC assays report <= and >. The `leq` and `geq`
