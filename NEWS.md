@@ -1,4 +1,4 @@
-# MIC (development version)
+# MIC 1.2.0
 
 * Functions that download data from PATRIC/BV-BRC have now been updated to
 support changes in BV-BRC ftp.
