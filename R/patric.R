@@ -23,6 +23,12 @@ patric_ftp_path <- "ftp://ftp.bv-brc.org/RELEASE_NOTES/PATRIC_genomes_AMR.txt"
 #'                 resistant_phenotype = "R")
 #' load_patric_db(p)
 load_patric_db <- function(x = patric_ftp_path) {
+  lifecycle::deprecate_warn(
+    when = "1.2.0",
+    what = "load_patric_db()",
+    with = "faLearn::load_patric_db()",
+    details = "This function has been moved to the faLearn package."
+  )
   if (inherits(x, "patric_db")) {
     message("Input to load_patric_db appears to already be a patric_db")
     return(x)
@@ -99,6 +105,12 @@ as_patric_db <- function(x) {
 download_patric_db <- function(save_path,
                            ftp_path = patric_ftp_path,
                            overwrite = FALSE) {
+  lifecycle::deprecate_warn(
+    when = "1.2.0",
+    what = "download_patric_db()",
+    with = "faLearn::download_patric_db()",
+    details = "This function has been moved to the faLearn package."
+  )
   if (file.exists(save_path) & !overwrite) {
     stop("File already exists, use overwrite (carefully)")
   }
@@ -191,6 +203,12 @@ pull_PATRIC_genomes <- function(output_directory,
                                 filter = "MIC",
                                 ab = NULL,
                                 n_genomes = 0) {
+  lifecycle::deprecate_warn(
+    when = "1.2.0",
+    what = "pull_PATRIC_genomes()",
+    with = "faLearn::pull_PATRIC_genomes()",
+    details = "This function has been moved to the faLearn package."
+  )
   supported_modality_filters <- c("all", "mic", "disc")
   filter <- tolower(filter)
   filter <- ifelse(filter == "disk", "disc", filter)
@@ -337,6 +355,12 @@ tidy_patric_meta_data <- function(x,
                                   prefer_more_resistant = TRUE,
                                   as_ab = TRUE,
                                   filter_abx = NULL) {
+  lifecycle::deprecate_warn(
+    when = "1.2.0",
+    what = "tidy_patric_meta_data()",
+    with = "faLearn::tidy_patric_meta_data()",
+    details = "This function has been moved to the faLearn package."
+  )
   if (!inherits(x, "patric_db")) {
     stop("Please load data using MIC::load_patric_db()")
   }

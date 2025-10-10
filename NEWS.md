@@ -1,12 +1,13 @@
 # MIC (development version)
 
-* Future versions of `MIC` may remove the genomic functions of the package, to
-focus on MIC analysis. Any removed functions will be ported to a new package
-that focuses on machine learning with genomic data, so the only change for users
-will be to install and load a new package.
 * Functions that download data from PATRIC/BV-BRC have now been updated to
 support changes in BV-BRC ftp.
 
+* As of this version the genomic functions of the package have been
+deprecated, so that future versions of `MIC` can focus on MIC analysis.
+Any removed functions will be ported to a new package (called `faLearn`,
+see: https://github.com/agerada/faLearn) that focuses on machine learning with
+genomic data. The only change for users will be to install and load `faLearn`.
 
 * Functionality added to handle <= and => in MIC values, distinguishing them from
 < and >. In general, inhibitory MIC assays report <= and >. The `leq` and `geq`
