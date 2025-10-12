@@ -1,3 +1,12 @@
+# MIC 1.2.0
+
+This version fixes external web resource functions.
+
+We checked 0 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+
 # MIC 1.1.0
 
 We checked 0 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.

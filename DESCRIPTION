@@ -1,6 +1,6 @@
 Package: MIC
 Title: Analysis of Antimicrobial Minimum Inhibitory Concentration Data
-Version: 1.1.0
+Version: 1.2.0
 Authors@R: 
     person("Alessandro", "Gerada", , "alessandro.gerada@liverpool.ac.uk", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-6743-4271"))
@@ -13,7 +13,7 @@ Description: Analyse, plot, and tabulate antimicrobial minimum inhibitory concen
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 biocViews:
 Imports: 
     AMR,
@@ -32,7 +32,8 @@ Imports:
     ggplot2,
     forcats,
     purrr,
-    tibble
+    tibble,
+    curl
 Depends: 
     R (>= 4.1.0)
 LazyData: true
