@@ -7,9 +7,9 @@ try:
     import rpy2.robjects as ro
     from rpy2.robjects import pandas2ri, vectors
     from rpy2.robjects.packages import importr
-except ImportError:
+except ImportError as e:
     raise ImportError(
-        "rpy2 is required for mic_py. Install it with: pip install rpy2>=3.5.0"
+        f"rpy2 is required for mic_py. Install it with: pip install rpy2>=3.5.0 or sudo apt-get install python3-rpy2. Error: {e}"
     )
 
 

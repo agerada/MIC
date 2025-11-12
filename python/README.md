@@ -9,6 +9,7 @@ This package provides a Python interface to the [MIC R package](https://github.c
 - Python 3.8+
 - R (>= 4.1.0)
 - rpy2 >= 3.5.0
+- pandas >= 1.0.0
 
 ### Install Dependencies
 
@@ -16,12 +17,12 @@ This package provides a Python interface to the [MIC R package](https://github.c
 
 Ubuntu/Debian:
 ```bash
-sudo apt-get install r-base python3-rpy2
+sudo apt-get install r-base python3-rpy2 python3-pandas
 ```
 
 **Option 2: Via pip**
 ```bash
-pip install rpy2>=3.5.0
+pip install rpy2>=3.5.0 pandas>=1.0.0
 ```
 
 ### Install mic-py

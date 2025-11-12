@@ -27,11 +27,11 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[
-        # rpy2 should be installed via system packages for best compatibility
-        # Ubuntu/Debian: sudo apt-get install python3-rpy2
-        # Or via pip: pip install rpy2>=3.5.0
+        # rpy2 and pandas should be installed via system packages for best compatibility
+        # Ubuntu/Debian: sudo apt-get install python3-rpy2 python3-pandas
+        # Or via pip: pip install rpy2>=3.5.0 pandas
     ],
     extras_require={
-        "pip": ["rpy2>=3.5.0"],
+        "pip": ["rpy2>=3.5.0", "pandas>=1.0.0"],
     },
 )
