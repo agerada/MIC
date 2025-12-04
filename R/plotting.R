@@ -114,10 +114,10 @@ plot.multi_ab_validation <- function(x,
     ggplot2::scale_fill_manual(values=c("red", "black"), aesthetics = "color", drop = FALSE)
 
     if (any(!is.null(c(facet_wrap_ncol, facet_wrap_nrow)))) {
-      p <- p + lemon::facet_rep_wrap(~ .data[["ab"]],
+      p <- p + ggh4x::facet_wrap2(~ .data[["ab"]],
                                      nrow = facet_wrap_nrow,
                                      ncol = facet_wrap_ncol,
-                                     repeat.tick.labels = TRUE)
+                                     axes = "all")
     }
 
     p <- p +
