@@ -1,3 +1,7 @@
+# MIC 2.0.0
+
+Compatible with new CRAN release of XGBoost.
+
 # MIC 1.2.0
 
 This version fixes external web resource functions.
