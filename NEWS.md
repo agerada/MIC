@@ -1,3 +1,5 @@
+# MIC (development version)
+
 # MIC 2.0.0
 
 * This is a major release that includes several breaking changes. The package
