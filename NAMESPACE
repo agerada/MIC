@@ -2,6 +2,8 @@
 
 S3method(droplevels,mic_validation)
 S3method(plot,mic_validation)
+S3method(plot,multi_ab_validation)
+S3method(plot,single_ab_validation)
 S3method(print,mic_validation)
 S3method(print,mic_validation_summary)
 S3method(subset,mic_validation)

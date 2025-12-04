@@ -1072,7 +1072,12 @@ compare_mic <- function(gold_standard,
                                    test_sir)
   }
 
-  class(output) <- append(class(output), "mic_validation", 0)
+  validation_class <- "single_ab_validation"
+  if (!is.null(ab) && length(unique(ab)) > 1) {
+    validation_class <- "multi_ab_validation"
+  }
+
+  class(output) <- append(class(output), c(validation_class, "mic_validation"), 0)
   attr(output, "call") <- call_list
   output
 }
@@ -1235,8 +1240,59 @@ subset.mic_validation <- function(x, subset, ...) {
   filtered
 }
 
-plot_mic_validation_single_ab <- function(x, match_axes, ...) {
-  x <- x |>
+prepare_mic_validation_plotting_data <- function(x, match_axes, add_missing_dilutions) {
+  x <- as.data.frame(x)
+  # keep only columns needed for plotting
+  if (!"ab" %in% colnames(x)) {
+    x <- x[,c("gold_standard", "test", "essential_agreement")]
+  } else {
+    x <- x[,c("gold_standard", "test", "essential_agreement", "ab")]
+  }
+
+  if (match_axes) {
+    x[["gold_standard"]] <- match_levels(x[["gold_standard"]], match_to = x[["test"]])
+    x[["test"]] <- match_levels(x[["test"]], match_to = x[["gold_standard"]])
+
+    if (add_missing_dilutions) {
+      x[["gold_standard"]] <- fill_dilution_levels(x[["gold_standard"]],
+                                                   cap_lower = TRUE,
+                                                   cap_upper = TRUE)
+      x[["test"]] <- fill_dilution_levels(x[["test"]],
+                                          cap_lower = TRUE,
+                                          cap_upper = TRUE)
+    }
+
+    if (length(levels(x[["gold_standard"]])) > length(levels(x[["test"]]))) {
+      # after dilution filling, levels may not yet match, force another match
+      x[["test"]] <- forcats::fct_expand(x[["test"]],
+                                          as.character(levels(x[["gold_standard"]])))
+      x[["test"]] <- forcats::fct_relevel(x[["test"]],
+                                          levels(x[["gold_standard"]]))
+    }
+
+    if (length(levels(x[["test"]])) > length(levels(x[["gold_standard"]]))) {
+      x[["gold_standard"]] <- forcats::fct_expand(x[["gold_standard"]],
+                                                  as.character(levels(x[["test"]])))
+      x[["gold_standard"]] <- forcats::fct_relevel(x[["gold_standard"]],
+                                                  levels(x[["test"]]))
+    }
+  }
+
+  # temp fix - drop use of mic class as a patch to allow AMR v3 compatibility
+  x[["gold_standard"]] <- factor(x[["gold_standard"]])
+  x[["test"]] <- factor(x[["test"]])
+
+  x
+}
+
+#' @export
+plot.single_ab_validation <- function(x,
+                                      match_axes = TRUE,
+                                      add_missing_dilutions = TRUE,
+                                      ...) {
+  x_df <- prepare_mic_validation_plotting_data(x, match_axes, add_missing_dilutions)
+
+  p <- x_df |>
     dplyr::group_by(.data[["gold_standard"]],
                     .data[["test"]],
                     .data[["essential_agreement"]]) |>
@@ -1257,17 +1313,27 @@ plot_mic_validation_single_ab <- function(x, match_axes, ...) {
     ggplot2::ylab("Test (mg/L)")
 
   if (match_axes) {
-    x <- x + ggplot2::scale_x_discrete(drop = FALSE)
-    x <- x + ggplot2::scale_y_discrete(drop = FALSE)
+    p <- p + ggplot2::scale_x_discrete(drop = FALSE)
+    p <- p + ggplot2::scale_y_discrete(drop = FALSE)
   }
-  x
+
+  if ("ab" %in% names(x) & "mo" %in% names(x)) {
+      bpoints <- AMR::clinical_breakpoints
+      p <- p + ggplot2::geom_hline(yintercept = AMR::as.mic(bpoints[]))
+  }
+  p
 }
 
-plot_mic_validation_multi_ab <- function(x, match_axes,
-                                         facet_wrap_ncol,
-                                         facet_wrap_nrow,
-                                         ...) {
-  x <- x |>
+#' @export
+plot.multi_ab_validation <- function(x,
+                                     match_axes = TRUE,
+                                     add_missing_dilutions = TRUE,
+                                     facet_wrap_ncol = NULL,
+                                     facet_wrap_nrow = NULL,
+                                     ...) {
+  x_df <- prepare_mic_validation_plotting_data(x, match_axes, add_missing_dilutions)
+
+  p <- x_df |>
     dplyr::group_by(.data[["gold_standard"]],
                     .data[["test"]],
                     .data[["essential_agreement"]],
@@ -1286,26 +1352,24 @@ plot_mic_validation_multi_ab <- function(x, match_axes,
     ggplot2::scale_fill_manual(values=c("red", "black"), aesthetics = "color", drop = FALSE)
 
     if (any(!is.null(c(facet_wrap_ncol, facet_wrap_nrow)))) {
-      x <- x + lemon::facet_rep_wrap(~ .data[["ab"]],
+      p <- p + lemon::facet_rep_wrap(~ .data[["ab"]],
                                      nrow = facet_wrap_nrow,
                                      ncol = facet_wrap_ncol,
                                      repeat.tick.labels = TRUE)
     }
 
-    x <- x +
+    p <- p +
     ggplot2::guides(color=ggplot2::guide_legend(override.aes=list(fill=NA))) +
     ggplot2::theme_bw(base_size = 13) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1)) +
     ggplot2::xlab("Gold standard MIC (mg/L)") +
     ggplot2::ylab("Test (mg/L)")
 
-
-
   if (match_axes) {
-    x <- x + ggplot2::scale_x_discrete(drop = FALSE)
-    x <- x + ggplot2::scale_y_discrete(drop = FALSE)
+    p <- p + ggplot2::scale_x_discrete(drop = FALSE)
+    p <- p + ggplot2::scale_y_discrete(drop = FALSE)
   }
-  x
+  p
 }
 
 #' S breakpoint for MIC
@@ -1472,63 +1536,19 @@ plot.mic_validation <- function(x,
                                 facet_wrap_ncol = NULL,
                                 facet_wrap_nrow = NULL,
                                 ...) {
-  x <- as.data.frame(x)
-  # keep only columns needed for plotting
-  if (!"ab" %in% colnames(x)) {
-    x <- x[,c("gold_standard", "test", "essential_agreement")]
+  # Fallback for objects without specific class
+  if (!is.null(x$ab) && length(unique(x$ab)) > 1) {
+    plot.multi_ab_validation(x,
+                             match_axes = match_axes,
+                             add_missing_dilutions = add_missing_dilutions,
+                             facet_wrap_ncol = facet_wrap_ncol,
+                             facet_wrap_nrow = facet_wrap_nrow,
+                             ...)
   } else {
-    x <- x[,c("gold_standard", "test", "essential_agreement", "ab")]
-  }
-
-  if (match_axes) {
-    x[["gold_standard"]] <- match_levels(x[["gold_standard"]], match_to = x[["test"]])
-    x[["test"]] <- match_levels(x[["test"]], match_to = x[["gold_standard"]])
-
-    if (add_missing_dilutions) {
-      x[["gold_standard"]] <- fill_dilution_levels(x[["gold_standard"]],
-                                                   cap_lower = TRUE,
-                                                   cap_upper = TRUE)
-      x[["test"]] <- fill_dilution_levels(x[["test"]],
-                                          cap_lower = TRUE,
-                                          cap_upper = TRUE)
-    }
-
-    if (length(levels(x[["gold_standard"]])) > length(levels(x[["test"]]))) {
-      # after dilution filling, levels may not yet match, force another match
-      x[["test"]] <- forcats::fct_expand(x[["test"]],
-                                          as.character(levels(x[["gold_standard"]])))
-      x[["test"]] <- forcats::fct_relevel(x[["test"]],
-                                          levels(x[["gold_standard"]]))
-    }
-
-    if (length(levels(x[["test"]])) > length(levels(x[["gold_standard"]]))) {
-      x[["gold_standard"]] <- forcats::fct_expand(x[["gold_standard"]],
-                                                  as.character(levels(x[["test"]])))
-      x[["gold_standard"]] <- forcats::fct_relevel(x[["gold_standard"]],
-                                                  levels(x[["test"]]))
-    }
-  }
-
-  # temp fix - drop use of mic class as a patch to allow AMR v3 compatibility
-  x[["gold_standard"]] <- factor(x[["gold_standard"]])
-  x[["test"]] <- factor(x[["test"]])
-
-  if (!"ab" %in% colnames(x) | length(unique(x[["ab"]])) == 1 |
-      all(is.null(c(facet_wrap_ncol, facet_wrap_nrow)))) {
-    p <- plot_mic_validation_single_ab(x, match_axes, ...)
-
-    if ("ab" %in% colnames(x) & "mo" %in% colnames(x)) {
-      bpoints <- AMR::clinical_breakpoints
-      p <- p + ggplot2::geom_hline(yintercept = AMR::as.mic(bpoints[]))
-    }
-    p
-  }
-  else {
-    p <- plot_mic_validation_multi_ab(x, match_axes = match_axes,
-                                      facet_wrap_ncol = facet_wrap_ncol,
-                                      facet_wrap_nrow = facet_wrap_nrow,
-                                      ...)
-    p
+    plot.single_ab_validation(x,
+                              match_axes = match_axes,
+                              add_missing_dilutions = add_missing_dilutions,
+                              ...)
   }
 }
 
