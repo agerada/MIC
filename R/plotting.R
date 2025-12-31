@@ -21,7 +21,7 @@ prepare_mic_validation_plotting_data <- function(x, match_axes, add_missing_dilu
     }
 
     if (length(levels(x[["gold_standard"]])) > length(levels(x[["test"]]))) {
-      # after dilution filling, levels may not yet match, force another match
+      # after dilution filling, levels may not yet match, force another match
       x[["test"]] <- forcats::fct_expand(x[["test"]],
                                           as.character(levels(x[["gold_standard"]])))
       x[["test"]] <- forcats::fct_relevel(x[["test"]],
@@ -37,8 +37,17 @@ prepare_mic_validation_plotting_data <- function(x, match_axes, add_missing_dilu
   }
 
   # temp fix - drop use of mic class as a patch to allow AMR v3 compatibility
-  x[["gold_standard"]] <- factor(x[["gold_standard"]])
-  x[["test"]] <- factor(x[["test"]])
+  # When match_axes = TRUE, preserve the matched levels
+  # When match_axes = FALSE, drop unused levels
+  if (match_axes) {
+    gs_levels <- levels(x[["gold_standard"]])
+    test_levels <- levels(x[["test"]])
+    x[["gold_standard"]] <- factor(x[["gold_standard"]], levels = gs_levels)
+    x[["test"]] <- factor(x[["test"]], levels = test_levels)
+  } else {
+    x[["gold_standard"]] <- factor(x[["gold_standard"]])
+    x[["test"]] <- factor(x[["test"]])
+  }
 
   x
 }
