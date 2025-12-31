@@ -52,12 +52,172 @@ prepare_mic_validation_plotting_data <- function(x, match_axes, add_missing_dilu
   x
 }
 
+# Base R plotting helper function
+plot_mic_validation_base <- function(x_df, main = "", ...) {
+  # Create contingency table
+  tab <- table(x_df[["gold_standard"]], x_df[["test"]])
+
+  # Get levels for axes
+  gs_levels <- levels(x_df[["gold_standard"]])
+  test_levels <- levels(x_df[["test"]])
+
+  n_gs <- length(gs_levels)
+  n_test <- length(test_levels)
+
+  # Set up color palette based on counts
+  max_count <- max(tab)
+  if (max_count == 0) max_count <- 1
+
+  # Create color gradient from white to teal
+  color_ramp <- grDevices::colorRampPalette(c("white", "#009194"))
+  colors <- color_ramp(max_count + 1)
+
+  # Set up plot
+  old_par <- graphics::par(mar = c(5, 5, 4, 2) + 0.1, las = 2)
+  on.exit(graphics::par(old_par))
+
+  # Create empty plot
+  graphics::plot(NA,
+       xlim = c(0.5, n_gs + 0.5),
+       ylim = c(0.5, n_test + 0.5),
+       xlab = "",
+       ylab = "",
+       xaxt = "n",
+       yaxt = "n",
+       main = main,
+       ...)
+
+  graphics::title(xlab = "Gold standard MIC (mg/L)", line = 4)
+  graphics::title(ylab = "Test (mg/L)", line = 4)
+
+  # Add axes
+  graphics::axis(1, at = seq_len(n_gs), labels = gs_levels, las = 2)
+  graphics::axis(2, at = seq_len(n_test), labels = test_levels, las = 1)
+
+  # Create EA lookup table
+  # Convert essential_agreement to logical if it's a factor
+  x_df$essential_agreement <- as.logical(x_df$essential_agreement)
+  ea_tab <- stats::aggregate(
+    essential_agreement ~ gold_standard + test,
+    data = x_df,
+    FUN = function(x) all(x)
+  )
+
+  # Draw tiles
+  for (i in seq_len(n_gs)) {
+    for (j in seq_len(n_test)) {
+      count <- tab[i, j]
+      if (count > 0) {
+        fill_col <- colors[count + 1]
+
+        # Check EA status for border color
+        ea_match <- ea_tab$essential_agreement[
+          ea_tab$gold_standard == gs_levels[i] & ea_tab$test == test_levels[j]
+        ]
+        border_col <- if (length(ea_match) > 0 && !ea_match) "red" else "black"
+
+        graphics::rect(i - 0.4, j - 0.4, i + 0.4, j + 0.4,
+             col = fill_col, border = border_col, lwd = 1.5)
+        graphics::text(i, j, labels = count, col = border_col)
+      }
+    }
+  }
+
+  invisible(NULL)
+}
+
 #' @export
 plot.single_ab_validation <- function(x,
                                       match_axes = TRUE,
                                       add_missing_dilutions = TRUE,
                                       ...) {
   x_df <- prepare_mic_validation_plotting_data(x, match_axes, add_missing_dilutions)
+  plot_mic_validation_base(x_df, ...)
+}
+
+#' @export
+plot.multi_ab_validation <- function(x,
+                                     match_axes = TRUE,
+                                     add_missing_dilutions = TRUE,
+                                     ...) {
+  x_df <- prepare_mic_validation_plotting_data(x, match_axes, add_missing_dilutions)
+
+  if ("ab" %in% colnames(x_df)) {
+    abs <- unique(x_df[["ab"]])
+    n_abs <- length(abs)
+
+    # Set up multi-panel layout
+    n_cols <- ceiling(sqrt(n_abs))
+    n_rows <- ceiling(n_abs / n_cols)
+
+    old_par <- graphics::par(mfrow = c(n_rows, n_cols))
+    on.exit(graphics::par(old_par))
+
+    for (ab_val in abs) {
+      ab_data <- x_df[x_df[["ab"]] == ab_val, ]
+      ab_name <- tryCatch(
+        AMR::ab_name(AMR::as.ab(as.character(ab_val))),
+        error = function(e) ab_val
+      )
+      if (is.na(ab_name)) ab_name <- "unknown"
+      plot_mic_validation_base(ab_data, main = ab_name, ...)
+    }
+  } else {
+    plot_mic_validation_base(x_df, ...)
+  }
+}
+
+#' Plot MIC validation results
+#'
+#' @param x object generated using compare_mic
+#' @param match_axes Same x and y axis
+#' @param add_missing_dilutions Axes will include dilutions that are not
+#' represented in the data, based on a series of dilutions generated using mic_range().
+#' @param ... additional arguments
+#'
+#' @return NULL (invisibly); called for side effects
+#'
+#' @export
+#'
+#' @examples
+#' gold_standard <- c("<0.25", "8", "64", ">64")
+#' test <- c("<0.25", "2", "16", "64")
+#' val <- compare_mic(gold_standard, test)
+#' plot(val)
+#'
+#' # if the validation contains multiple antibiotics, i.e.,
+#' ab <- c("CIP", "CIP", "AMK", "AMK")
+#' val <- compare_mic(gold_standard, test, ab)
+#' # the following will plot all antibiotics in a single plot (pooled results)
+#' plot(val)
+plot.mic_validation <- function(x,
+                                match_axes = TRUE,
+                                add_missing_dilutions = TRUE,
+                                ...) {
+  # Fallback for objects without specific class
+  if (!is.null(x$ab) && length(unique(x$ab)) > 1) {
+    plot.multi_ab_validation(x,
+                             match_axes = match_axes,
+                             add_missing_dilutions = add_missing_dilutions,
+                             ...)
+  } else {
+    plot.single_ab_validation(x,
+                              match_axes = match_axes,
+                              add_missing_dilutions = add_missing_dilutions,
+                              ...)
+  }
+}
+
+# ============================================================================
+# autoplot methods (ggplot2-based plotting)
+# ============================================================================
+
+#' @exportS3Method ggplot2::autoplot single_ab_validation
+autoplot.single_ab_validation <- function(object,
+                                          match_axes = TRUE,
+                                          add_missing_dilutions = TRUE,
+                                          ...) {
+  x_df <- prepare_mic_validation_plotting_data(object, match_axes, add_missing_dilutions)
 
   p <- x_df |>
     dplyr::group_by(.data[["gold_standard"]],
@@ -84,25 +244,21 @@ plot.single_ab_validation <- function(x,
     p <- p + ggplot2::scale_y_discrete(drop = FALSE)
   }
 
-  # if ("ab" %in% names(x) & "mo" %in% names(x)) {
-  #     bpoints <- AMR::clinical_breakpoints
-  #     p <- p + ggplot2::geom_hline(yintercept = AMR::as.mic(bpoints[]))
-  # }
   p
 }
 
-#' @export
-plot.multi_ab_validation <- function(x,
-                                     match_axes = TRUE,
-                                     add_missing_dilutions = TRUE,
-                                     facet_wrap_ncol = NULL,
-                                     facet_wrap_nrow = NULL,
-                                     ...) {
+#' @exportS3Method ggplot2::autoplot multi_ab_validation
+autoplot.multi_ab_validation <- function(object,
+                                         match_axes = TRUE,
+                                         add_missing_dilutions = TRUE,
+                                         facet_wrap_ncol = NULL,
+                                         facet_wrap_nrow = NULL,
+                                         ...) {
   if (is.null(facet_wrap_ncol) && is.null(facet_wrap_nrow)) {
-    return(plot.single_ab_validation(x, match_axes, add_missing_dilutions, ...))
+    return(autoplot.single_ab_validation(object, match_axes, add_missing_dilutions, ...))
   }
 
-  x_df <- prepare_mic_validation_plotting_data(x, match_axes, add_missing_dilutions)
+  x_df <- prepare_mic_validation_plotting_data(object, match_axes, add_missing_dilutions)
 
   p <- x_df |>
     dplyr::group_by(.data[["gold_standard"]],
@@ -143,9 +299,9 @@ plot.multi_ab_validation <- function(x,
   p
 }
 
-#' Plot MIC validation results
+#' Create a ggplot for MIC validation results
 #'
-#' @param x object generated using compare_mic
+#' @param object object generated using compare_mic
 #' @param match_axes Same x and y axis
 #' @param add_missing_dilutions Axes will include dilutions that are not
 #' @param facet_wrap_ncol Facet wrap into n columns by antimicrobial (optional,
@@ -157,39 +313,45 @@ plot.multi_ab_validation <- function(x,
 #'
 #' @return ggplot object
 #'
-#' @export
+#' @exportS3Method ggplot2::autoplot mic_validation
 #'
 #' @examples
 #' gold_standard <- c("<0.25", "8", "64", ">64")
 #' test <- c("<0.25", "2", "16", "64")
 #' val <- compare_mic(gold_standard, test)
-#' plot(val)
+#' if (requireNamespace("ggplot2", quietly = TRUE)) {
+#'   ggplot2::autoplot(val)
+#' }
 #'
 #' # if the validation contains multiple antibiotics, i.e.,
 #' ab <- c("CIP", "CIP", "AMK", "AMK")
 #' val <- compare_mic(gold_standard, test, ab)
 #' # the following will plot all antibiotics in a single plot (pooled results)
-#' plot(val)
+#' if (requireNamespace("ggplot2", quietly = TRUE)) {
+#'   ggplot2::autoplot(val)
+#' }
 #' # use the faceting arguments to split the plot by antibiotic
-#' plot(val, facet_wrap_ncol = 2)
-plot.mic_validation <- function(x,
-                                match_axes = TRUE,
-                                add_missing_dilutions = TRUE,
-                                facet_wrap_ncol = NULL,
-                                facet_wrap_nrow = NULL,
-                                ...) {
+#' if (requireNamespace("ggplot2", quietly = TRUE)) {
+#'   ggplot2::autoplot(val, facet_wrap_ncol = 2)
+#' }
+autoplot.mic_validation <- function(object,
+                                    match_axes = TRUE,
+                                    add_missing_dilutions = TRUE,
+                                    facet_wrap_ncol = NULL,
+                                    facet_wrap_nrow = NULL,
+                                    ...) {
   # Fallback for objects without specific class
-  if (!is.null(x$ab) && length(unique(x$ab)) > 1) {
-    plot.multi_ab_validation(x,
-                             match_axes = match_axes,
-                             add_missing_dilutions = add_missing_dilutions,
-                             facet_wrap_ncol = facet_wrap_ncol,
-                             facet_wrap_nrow = facet_wrap_nrow,
-                             ...)
+  if (!is.null(object$ab) && length(unique(object$ab)) > 1) {
+    autoplot.multi_ab_validation(object,
+                                 match_axes = match_axes,
+                                 add_missing_dilutions = add_missing_dilutions,
+                                 facet_wrap_ncol = facet_wrap_ncol,
+                                 facet_wrap_nrow = facet_wrap_nrow,
+                                 ...)
   } else {
-    plot.single_ab_validation(x,
-                              match_axes = match_axes,
-                              add_missing_dilutions = add_missing_dilutions,
-                              ...)
+    autoplot.single_ab_validation(object,
+                                  match_axes = match_axes,
+                                  add_missing_dilutions = add_missing_dilutions,
+                                  ...)
   }
 }
