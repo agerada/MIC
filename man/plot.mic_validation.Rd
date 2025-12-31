@@ -4,33 +4,20 @@
 \alias{plot.mic_validation}
 \title{Plot MIC validation results}
 \usage{
-\method{plot}{mic_validation}(
-  x,
-  match_axes = TRUE,
-  add_missing_dilutions = TRUE,
-  facet_wrap_ncol = NULL,
-  facet_wrap_nrow = NULL,
-  ...
-)
+\method{plot}{mic_validation}(x, match_axes = TRUE, add_missing_dilutions = TRUE, ...)
 }
 \arguments{
 \item{x}{object generated using compare_mic}
 
 \item{match_axes}{Same x and y axis}
 
-\item{add_missing_dilutions}{Axes will include dilutions that are not}
-
-\item{facet_wrap_ncol}{Facet wrap into n columns by antimicrobial (optional,
-only available when more than one antimicrobial in validation)}
-
-\item{facet_wrap_nrow}{Facet wrap into n rows by antimicrobial (optional,
-only available when more than one antimicrobial in validation)
+\item{add_missing_dilutions}{Axes will include dilutions that are not
 represented in the data, based on a series of dilutions generated using mic_range().}
 
 \item{...}{additional arguments}
 }
 \value{
-ggplot object
+NULL (invisibly); called for side effects
 }
 \description{
 Plot MIC validation results
@@ -46,6 +33,4 @@ ab <- c("CIP", "CIP", "AMK", "AMK")
 val <- compare_mic(gold_standard, test, ab)
 # the following will plot all antibiotics in a single plot (pooled results)
 plot(val)
-# use the faceting arguments to split the plot by antibiotic
-plot(val, facet_wrap_ncol = 2)
 }
