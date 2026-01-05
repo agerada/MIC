@@ -224,7 +224,7 @@ autoplot.single_ab_validation <- function(object,
                     .data[["test"]],
                     .data[["essential_agreement"]]) |>
     dplyr::summarise(n = dplyr::n()) |>
-    dplyr::rename(`EA` = .data[["essential_agreement"]]) |>
+    dplyr::rename(EA = "essential_agreement") |>
     ggplot2::ggplot(ggplot2::aes(x = .data[["gold_standard"]],
                                  y = .data[["test"]],
                                  fill = .data[["n"]],
@@ -268,7 +268,7 @@ autoplot.multi_ab_validation <- function(object,
     dplyr::mutate(ab = AMR::ab_name(AMR::as.ab(as.character(.data[["ab"]])))) |>
     dplyr::mutate(ab = dplyr::if_else(is.na(.data[["ab"]]), "unknown", .data[["ab"]])) |>
     dplyr::summarise(n = dplyr::n()) |>
-    dplyr::rename(`EA` = .data[["essential_agreement"]]) |>
+    dplyr::rename(EA = "essential_agreement") |>
     ggplot2::ggplot(ggplot2::aes(x = .data[["gold_standard"]],
                                  y = .data[["test"]],
                                  fill = .data[["n"]],
@@ -279,7 +279,7 @@ autoplot.multi_ab_validation <- function(object,
     ggplot2::scale_fill_manual(values=c("red", "black"), aesthetics = "color", drop = FALSE)
 
     if (any(!is.null(c(facet_wrap_ncol, facet_wrap_nrow)))) {
-      p <- p + ggh4x::facet_wrap2(~ .data[["ab"]],
+      p <- p + ggh4x::facet_wrap2(~ ab,
                                      nrow = facet_wrap_nrow,
                                      ncol = facet_wrap_ncol,
                                      axes = "all")
