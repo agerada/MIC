@@ -616,6 +616,7 @@ subset.mic_validation <- function(x, subset, ...) {
 #' Summary of MIC validation results
 #'
 #' @param object S3 mic_validation object
+#' @param na.ignore logical whether to ignore NA values in MICs, EA, and SIR
 #' @param ... further optional parameters
 #'
 #' @export
@@ -633,7 +634,18 @@ subset.mic_validation <- function(x, subset, ...) {
 #' # or, for more detailed results
 #' as.data.frame(summary(val))
 summary.mic_validation <- function(object,
+                                   na.ignore = FALSE,
                                    ...) {
+  if (!na.ignore) {
+    if (any(is.na(object$gold_standard)) |
+        any(is.na(object$test)) |
+        any(is.na(object$essential_agreement)) |
+        any(is.na(object$gold_standard_sir)) |
+        any(is.na(object$test_sir)) ){
+      stop("NA values are present in gold_standard, test, or essential_agreement.
+  Remove these before summarising (or set na.ignore = TRUE).")
+    }
+  }
   if (!"ab" %in% names(object) & !"mo" %in% names(object)) {
     output <- list(EA_n = sum(object$essential_agreement == TRUE),
                    EA_pcent = sum(object$essential_agreement == TRUE) / length(object$essential_agreement),
