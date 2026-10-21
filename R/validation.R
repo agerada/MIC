@@ -763,6 +763,18 @@ compare_sir <- function(gold_standard, test) {
   if (!all(AMR::is.sir(gold_standard)) | !all(AMR::is.sir(test))) {
     stop("Inputs to compare_sir must be AMR::sir objects")
   }
+
+  gold_standard <- as.character(gold_standard)
+  gold_standard[gold_standard == "WT"] <- "S"
+  gold_standard[gold_standard == "NWT"] <- "R"
+
+  test <- as.character(test)
+  test[test == "WT"] <- "S"
+  test[test == "NWT"] <- "R"
+
+  gold_standard <- AMR::as.sir(gold_standard)
+  test <- AMR::as.sir(test)
+
   return(
     factor(
       dplyr::case_when(

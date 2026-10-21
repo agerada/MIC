@@ -657,7 +657,7 @@ mic_s_breakpoint <- function(mo, ab, accept_ecoff = FALSE, ...) {
     }
   }
   for (i in seq_along(sir_range)) {
-    if (sir_range[i] == "S") {
+    if (sir_range[i] %in% c("S", "WT")) {
       return(AMR::as.mic(mic_range[i]))
     }
   }
@@ -695,7 +695,7 @@ mic_r_breakpoint <- function(mo, ab, accept_ecoff = FALSE, ...) {
     }
   }
   for (i in seq_along(sir_range)) {
-    if (sir_range[i] == "R") {
+    if (sir_range[i] %in% c("R", "NWT")) {
       return(AMR::as.mic(mic_range[i-1]))
     }
   }
