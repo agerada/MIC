@@ -437,8 +437,8 @@ compare_mic <- function(gold_standard,
   }
 
   if (!is.null(ab) & !is.null(mo)) {
-    gold_standard_sir <- as.sir_vectorised(gold_standard_mod, mo, ab, accept_ecoff, ...)
-    test_sir <- as.sir_vectorised(test_mod, mo, ab, accept_ecoff, ...)
+    gold_standard_sir <- as.sir_fallback_ecoff(gold_standard_mod, mo, ab, accept_ecoff, ...)
+    test_sir <- as.sir_fallback_ecoff(test_mod, mo, ab, accept_ecoff, ...)
     output[["gold_standard_sir"]] <- gold_standard_sir
     output[["test_sir"]] <- test_sir
     output[["error"]] <- compare_sir(gold_standard_sir,

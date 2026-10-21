@@ -561,7 +561,7 @@ force_mic <- function(value,
   return(output)
 }
 
-#' Convert MIC or Disk Diffusion to SIR, vectorised over antimicrobials
+#' Convert MIC or Disk Diffusion to SIR, prefer breakpoint but fallback to ECOFF
 #'
 #' @param mic vector of MIC values
 #' @param mo vector of microorganism names
@@ -572,56 +572,27 @@ force_mic <- function(value,
 #' @return S3 sir values
 #' @export
 #' @description
-#' The AMR::as.sir function is not vectorised over antimicrobials. This function
-#' provides vectorisation over antimicrobials. Due to the overhead of running
-#' AMR::as.sir, this function tries to be efficient by only running AMR::as.sir
-#' as little as necessary.
+#' Small modification to AMR::as.sir, that will attempt to use ECOFFs when
+#' clinical breakpoints are not available.
 #'
 #' @examples
-#' mic <- c("<0.25", "8", "64", ">64")
-#' mo <- c("B_ESCHR_COLI", "B_ESCHR_COLI", "B_ESCHR_COLI", "B_ESCHR_COLI")
-#' ab <- c("AMK", "AMK", "AMK", "AMK")
-#' as.sir_vectorised(mic, mo, ab)
-
-#' # using different microorganisms and antibiotics
-#' mic <- c("<0.25", "8", "64", ">64")
-#' mo <- c("B_ESCHR_COLI", "B_ESCHR_COLI", "B_PROTS_MRBL", "B_PROTS_MRBL")
-#' ab <- c("AMK", "AMK", "CIP", "CIP")
-#' as.sir_vectorised(mic, mo, ab)
-as.sir_vectorised <- function(mic, mo, ab, accept_ecoff = FALSE, ...) {
-  if (length(unique(ab)) == 1) {
-    ab <- ab[[1]]
-    output <- AMR::as.sir(mic, mo = mo, ab = ab, ...)
-    if (accept_ecoff & any(is.na(output))) {
+#' mic <- AMR::as.mic("<0.25")
+#' mo <- "B_ESCHR_COLI"
+#' ab <- "AMK"
+#' as.sir_fallback_ecoff(mic, mo, ab, accept_ecoff = FALSE)
+as.sir_fallback_ecoff <- function(mic, mo, ab, accept_ecoff = FALSE, ...) {
+  output <- AMR::as.sir(mic, mo = mo, ab = ab, ...)
+  if (any(is.na(output))) {
+    if (accept_ecoff) {
       output[is.na(output)] <- AMR::as.sir(mic[is.na(output)],
                                            mo = mo[is.na(output)],
-                                           ab = ab,
+                                           ab = ab[is.na(output)],
                                            breakpoint_type = "ECOFF",
                                            ...)
+    } else {
+      message(paste("No clinical breakpoint for:", ab[is.na(output)], mo[is.na(output)], "(use accept_ecoff to use ECOFF)"))
     }
-    return(output)
   }
-
-  output <- purrr::pmap_vec(list(mic,
-                       mo,
-                       ab), \(x, mo, ab) AMR::as.sir(x, mo = mo, ab = ab))
-  output <- purrr::pmap_vec(list(mic,
-                                 mo,
-                                 ab,
-                                 output), \(x, mo, ab, sir) {
-                                   if (is.na(sir)) {
-                                     if (accept_ecoff) {
-                                       message(paste("No clinical breakpoint for:", ab, mo, "using ECOFF"))
-                                       AMR::as.sir(x, mo = mo, ab = ab,
-                                                   breakpoint_type = "ECOFF")
-                                     } else {
-                                       message(paste("No clinical breakpoint for:", ab, mo, "(use accept_ecoff to use ECOFF)"))
-                                       sir
-                                     }
-                                   } else {
-                                     sir
-                                   }
-                                 })
   output
 }
 
