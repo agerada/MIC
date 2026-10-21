@@ -608,7 +608,7 @@ as.sir_fallback_ecoff <- function(mic, mo, ab, accept_ecoff = FALSE, ...) {
 #' @export
 #'
 #' @examples
-#' mic_s_breakpoint("B_ESCHR_COLI", "AMK")
+#' mic_s_breakpoint("B_ESCHR_COLI", "CIP")
 #' mic_s_breakpoint("B_ESCHR_COLI", "CHL", accept_ecoff = TRUE)
 mic_s_breakpoint <- function(mo, ab, accept_ecoff = FALSE, ...) {
   mic_range <- mic_range()
@@ -646,7 +646,7 @@ mic_s_breakpoint <- function(mo, ab, accept_ecoff = FALSE, ...) {
 #' @export
 #'
 #' @examples
-#' mic_r_breakpoint("B_ESCHR_COLI", "AMK")
+#' mic_r_breakpoint("B_ESCHR_COLI", "CIP")
 #' mic_r_breakpoint("B_ESCHR_COLI", "CHL", accept_ecoff = TRUE)
 mic_r_breakpoint <- function(mo, ab, accept_ecoff = FALSE, ...) {
   mic_range <- rev(mic_range())

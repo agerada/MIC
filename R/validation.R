@@ -907,7 +907,7 @@ tabulate_flex <- function(t, ea, bold, ea_color, gold_standard_name, test_name) 
 #' gold_standard <- c("<0.25", "8", "64", ">64")
 #' test <- c("<0.25", "2", "16", "64")
 #' val <- compare_mic(gold_standard, test)
-#' table(val)
+#' table(val, format = "simple", fill_dilutions = FALSE)
 table.mic_validation <- function(x,
                                  format = 'flextable',
                                  fill_dilutions = TRUE,
