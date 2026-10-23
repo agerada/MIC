@@ -19,33 +19,13 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/agerada/MIC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/agerada/MIC/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-## Important updates
-
-As of version 2.0.0 the MIC package has being refocused to provide
-MIC-specific analysis and validation utilities.
-Genomics-related functions (PATRIC download helpers,
-genome -> $k$-mer conversion, $k$-mer utilities, and similar)
-have been ported to a new package,
-[`faLearn`](https://github.com/agerada/faLearn).
-
-To continue using these functions, simply install and load the `faLearn`
-package alongside `MIC`:
-
-```r
-# install.packages("remotes")
-remotes::install_github("agerada/faLearn")
-library(faLearn)
-```
-
 ## Introduction
 
 `MIC` is an R package for the analysis of minimum inhibitory concentration (MIC)
 data. The package was designed to be compatible with the [`AMR`](https://amr-for-r.org/), in
 particular most of the functions in `MIC` are designed to accept and return
 `AMR` objects, such as `mic` and `sir`. The primary functions in `MIC` are
-designed towards validation studies of minimum inhibitory concentrations, however
-it also can (optionally) be used to support the construction of machine learning
-models that predict MIC values from genomic data.
+designed towards validation studies of minimum inhibitory concentrations.
 
 ## Features
 
@@ -55,13 +35,6 @@ ISO 20776-2:2021.
 - Plots and tables can be generated from validation experiments.
 - Quality control analysis of MIC experiments.
 - Functions to deal with censoring in MIC data.
-- Helper functions to download whole genome sequencing data and susceptibility
-metadata from the [PATRIC](https://www.bv-brc.org/docs/system_documentation/data.html)
-database at BV-BRC.
-- Conversion of whole genome sequence data (assembled .fna files) to k-mer based
-features for machine learning models. 
-- Fast k-mer counting using C++ and `Rcpp`.
-- K-mer features stored in `XGBoost`-compatible `libsvm` format.
 
 ## Installation
 
@@ -120,7 +93,7 @@ and very major errors:
 
 ```{r message=FALSE}
 val <- compare_mic(gold_standard = example_mics$gs, test = example_mics$test,
-                   mo = example_mics$mo, ab = example_mics$ab)
+                   mo = example_mics$mo, ab = example_mics$ab, accept_ecoff = TRUE)
 val
 ```
 

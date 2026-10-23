@@ -34,12 +34,12 @@
   "Packages": {
     "AMR": {
       "Package": "AMR",
-      "Version": "3.0.1",
+      "Version": "3.1.0",
       "Source": "Repository",
-      "Date": "2025-09-20",
+      "Date": "2026-10-16",
       "Title": "Antimicrobial Resistance Data Analysis",
       "Description": "Functions to simplify and standardise antimicrobial resistance (AMR) data analysis and to work with microbial and antimicrobial properties by using evidence-based methods, as described in <doi:10.18637/jss.v104.i03>.",
-      "Authors@R": "c( person(given = c(\"Matthijs\", \"S.\"),               family = \"Berends\",     role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0001-7620-1800\"), email = \"m.s.berends@umcg.nl\"), person(given = c(\"Dennis\"),                       family = \"Souverein\",   role = c(\"aut\", \"ctb\"), comment = c(ORCID = \"0000-0003-0455-0336\")), person(given = c(\"Erwin\", \"E.\", \"A.\"),            family = \"Hassing\",     role = c(\"aut\", \"ctb\")), person(given = c(\"Aislinn\"),                      family = \"Cook\",        role = \"ctb\", comment = c(ORCID = \"0000-0002-9189-7815\")), person(given = c(\"Andrew\", \"P.\"),                 family = \"Norgan\",      role = \"ctb\", comment = c(ORCID = \"0000-0002-2955-2066\")), person(given = c(\"Anita\"),                        family = \"Williams\",    role = \"ctb\", comment = c(ORCID = \"0000-0002-5295-8451\")), person(given = c(\"Annick\"),                       family = \"Lenglet\",     role = \"ctb\", comment = c(ORCID = \"0000-0003-2013-8405\")), person(given = c(\"Anthony\"),                      family = \"Underwood\",   role = \"ctb\", comment = c(ORCID = \"0000-0002-8547-4277\")), person(given = c(\"Anton\"),                        family = \"Mymrikov\",    role = \"ctb\"), person(given = c(\"Bart\", \"C.\"),                   family = \"Meijer\",      role = \"ctb\"), person(given = c(\"Christian\", \"F.\"),              family = \"Luz\",         role = \"ctb\", comment = c(ORCID = \"0000-0001-5809-5995\")), person(given = c(\"Dmytro\"),                       family = \"Mykhailenko\", role = \"ctb\"), person(given = c(\"Eric\", \"H.\", \"L.\", \"C.\", \"M.\"), family = \"Hazenberg\",   role = \"ctb\"), person(given = c(\"Gwen\"),                         family = \"Knight\",      role = \"ctb\", comment = c(ORCID = \"0000-0002-7263-9896\")), person(given = c(\"Jane\"),                         family = \"Hawkey\",      role = \"ctb\", comment = c(ORCID = \"0000-0001-9661-5293\")), person(given = c(\"Jason\"),                        family = \"Stull\",       role = \"ctb\", comment = c(ORCID = \"0000-0002-9028-8153\")), person(given = c(\"Javier\"),                       family = \"Sanchez\",     role = \"ctb\", comment = c(ORCID = \"0000-0003-2605-8094\")), person(given = c(\"Jonas\"),                        family = \"Salm\",        role = \"ctb\"), person(given = c(\"Judith\", \"M.\"),                 family = \"Fonville\",    role = \"ctb\"), person(given = c(\"Kathryn\"),                      family = \"Holt\",        role = \"ctb\", comment = c(ORCID = \"0000-0003-3949-2471\")), person(given = c(\"Larisse\"),                      family = \"Bolton\",      role = \"ctb\", comment = c(ORCID = \"0000-0001-7879-2173\")), person(given = c(\"Matthew\"),                      family = \"Saab\",        role = \"ctb\"), person(given = c(\"Natacha\"),                      family = \"Couto\",       role = \"ctb\", comment = c(ORCID = \"0000-0002-9152-5464\")), person(given = c(\"Peter\"),                        family = \"Dutey-Magni\", role = \"ctb\", comment = c(ORCID = \"0000-0002-8942-9836\")), person(given = c(\"Rogier\", \"P.\"),                 family = \"Schade\",      role = \"ctb\"), person(given = c(\"Sofia\"),                        family = \"Ny\",          role = \"ctb\", comment = c(ORCID = \"0000-0002-2017-1363\")), person(given = c(\"Alex\", \"W.\"),                   family = \"Friedrich\",   role = \"ths\", comment = c(ORCID = \"0000-0003-4881-038X\")), person(given = c(\"Bhanu\", \"N.\", \"M.\"),            family = \"Sinha\",       role = \"ths\", comment = c(ORCID = \"0000-0003-1634-0010\")), person(given = c(\"Casper\", \"J.\"),                 family = \"Albers\",      role = \"ths\", comment = c(ORCID = \"0000-0002-9213-6743\")), person(given = c(\"Corinna\"),                      family = \"Glasner\",     role = \"ths\", comment = c(ORCID = \"0000-0003-1241-1328\")))",
+      "Authors@R": "c( person(given = c(\"Matthijs\", \"S.\"),               family = \"Berends\",     role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0001-7620-1800\"), email = \"m.s.berends@umcg.nl\"), person(given = c(\"Dennis\"),                       family = \"Souverein\",   role = c(\"aut\", \"ctb\"), comment = c(ORCID = \"0000-0003-0455-0336\")), person(given = c(\"Erwin\", \"E.\", \"A.\"),            family = \"Hassing\",     role = c(\"aut\", \"ctb\")), person(given = c(\"Aislinn\"),                      family = \"Cook\",        role = \"ctb\", comment = c(ORCID = \"0000-0002-9189-7815\")), person(given = c(\"Andrew\", \"P.\"),                 family = \"Norgan\",      role = \"ctb\", comment = c(ORCID = \"0000-0002-2955-2066\")), person(given = c(\"Anita\"),                        family = \"Williams\",    role = \"ctb\", comment = c(ORCID = \"0000-0002-5295-8451\")), person(given = c(\"Annick\"),                       family = \"Lenglet\",     role = \"ctb\", comment = c(ORCID = \"0000-0003-2013-8405\")), person(given = c(\"Anthony\"),                      family = \"Underwood\",   role = \"ctb\", comment = c(ORCID = \"0000-0002-8547-4277\")), person(given = c(\"Anton\"),                        family = \"Mymrikov\",    role = \"ctb\"), person(given = c(\"Bart\", \"C.\"),                   family = \"Meijer\",      role = \"ctb\"), person(given = c(\"Christian\", \"F.\"),              family = \"Luz\",         role = \"ctb\", comment = c(ORCID = \"0000-0001-5809-5995\")), person(given = c(\"Dmytro\"),                       family = \"Mykhailenko\", role = \"ctb\"), person(given = c(\"Eric\", \"H.\", \"L.\", \"C.\", \"M.\"), family = \"Hazenberg\",   role = \"ctb\"), person(given = c(\"Gwen\"),                         family = \"Knight\",      role = \"ctb\", comment = c(ORCID = \"0000-0002-7263-9896\")), person(given = c(\"Jane\"),                         family = \"Hawkey\",      role = \"ctb\", comment = c(ORCID = \"0000-0001-9661-5293\")), person(given = c(\"Jason\"),                        family = \"Stull\",       role = \"ctb\", comment = c(ORCID = \"0000-0002-9028-8153\")), person(given = c(\"Javier\"),                       family = \"Sanchez\",     role = \"ctb\", comment = c(ORCID = \"0000-0003-2605-8094\")), person(given = c(\"Jonas\"),                        family = \"Salm\",        role = \"ctb\"), person(given = c(\"Judith\", \"M.\"),                 family = \"Fonville\",    role = \"ctb\"), person(given = c(\"Kathryn\"),                      family = \"Holt\",        role = \"ctb\", comment = c(ORCID = \"0000-0003-3949-2471\")), person(given = c(\"Larisse\"),                      family = \"Bolton\",      role = \"ctb\", comment = c(ORCID = \"0000-0001-7879-2173\")), person(given = c(\"Matthew\"),                      family = \"Saab\",        role = \"ctb\", comment = c(ORCID = \"0009-0008-6626-7919\")), person(given = c(\"Natacha\"),                      family = \"Couto\",       role = \"ctb\", comment = c(ORCID = \"0000-0002-9152-5464\")), person(given = c(\"Peter\"),                        family = \"Dutey-Magni\", role = \"ctb\", comment = c(ORCID = \"0000-0002-8942-9836\")), person(given = c(\"Rogier\", \"P.\"),                 family = \"Schade\",      role = \"ctb\", comment = c(ORCID = \"0000-0002-9487-4467\")), person(given = c(\"Sofia\"),                        family = \"Ny\",          role = \"ctb\", comment = c(ORCID = \"0000-0002-2017-1363\")), person(given = c(\"Alex\", \"W.\"),                   family = \"Friedrich\",   role = \"ths\", comment = c(ORCID = \"0000-0003-4881-038X\")), person(given = c(\"Bhanu\", \"N.\", \"M.\"),            family = \"Sinha\",       role = \"ths\", comment = c(ORCID = \"0000-0003-1634-0010\")), person(given = c(\"Casper\", \"J.\"),                 family = \"Albers\",      role = \"ths\", comment = c(ORCID = \"0000-0002-9213-6743\")), person(given = c(\"Corinna\"),                      family = \"Glasner\",     role = \"ths\", comment = c(ORCID = \"0000-0003-1241-1328\")))",
       "Depends": [
         "R (>= 3.0.0)"
       ],
@@ -50,10 +50,11 @@
         "curl",
         "data.table",
         "dplyr",
+        "future",
+        "future.apply",
         "ggplot2",
         "knitr",
         "openxlsx",
-        "parallelly",
         "pillar",
         "progress",
         "readxl",
@@ -69,7 +70,8 @@
         "tidyselect",
         "tinytest",
         "vctrs",
-        "xml2"
+        "xml2",
+        "usethis"
       ],
       "VignetteBuilder": "knitr,rmarkdown",
       "URL": "https://amr-for-r.org, https://github.com/msberends/AMR",
@@ -77,9 +79,9 @@
       "License": "GPL-2 | file LICENSE",
       "Encoding": "UTF-8",
       "LazyData": "true",
-      "RoxygenNote": "7.3.3",
+      "Config/roxygen2/version": "8.1.0",
       "NeedsCompilation": "no",
-      "Author": "Matthijs S. Berends [aut, cre] (ORCID: <https://orcid.org/0000-0001-7620-1800>), Dennis Souverein [aut, ctb] (ORCID: <https://orcid.org/0000-0003-0455-0336>), Erwin E. A. Hassing [aut, ctb], Aislinn Cook [ctb] (ORCID: <https://orcid.org/0000-0002-9189-7815>), Andrew P. Norgan [ctb] (ORCID: <https://orcid.org/0000-0002-2955-2066>), Anita Williams [ctb] (ORCID: <https://orcid.org/0000-0002-5295-8451>), Annick Lenglet [ctb] (ORCID: <https://orcid.org/0000-0003-2013-8405>), Anthony Underwood [ctb] (ORCID: <https://orcid.org/0000-0002-8547-4277>), Anton Mymrikov [ctb], Bart C. Meijer [ctb], Christian F. Luz [ctb] (ORCID: <https://orcid.org/0000-0001-5809-5995>), Dmytro Mykhailenko [ctb], Eric H. L. C. M. Hazenberg [ctb], Gwen Knight [ctb] (ORCID: <https://orcid.org/0000-0002-7263-9896>), Jane Hawkey [ctb] (ORCID: <https://orcid.org/0000-0001-9661-5293>), Jason Stull [ctb] (ORCID: <https://orcid.org/0000-0002-9028-8153>), Javier Sanchez [ctb] (ORCID: <https://orcid.org/0000-0003-2605-8094>), Jonas Salm [ctb], Judith M. Fonville [ctb], Kathryn Holt [ctb] (ORCID: <https://orcid.org/0000-0003-3949-2471>), Larisse Bolton [ctb] (ORCID: <https://orcid.org/0000-0001-7879-2173>), Matthew Saab [ctb], Natacha Couto [ctb] (ORCID: <https://orcid.org/0000-0002-9152-5464>), Peter Dutey-Magni [ctb] (ORCID: <https://orcid.org/0000-0002-8942-9836>), Rogier P. Schade [ctb], Sofia Ny [ctb] (ORCID: <https://orcid.org/0000-0002-2017-1363>), Alex W. Friedrich [ths] (ORCID: <https://orcid.org/0000-0003-4881-038X>), Bhanu N. M. Sinha [ths] (ORCID: <https://orcid.org/0000-0003-1634-0010>), Casper J. Albers [ths] (ORCID: <https://orcid.org/0000-0002-9213-6743>), Corinna Glasner [ths] (ORCID: <https://orcid.org/0000-0003-1241-1328>)",
+      "Author": "Matthijs S. Berends [aut, cre] (ORCID: <https://orcid.org/0000-0001-7620-1800>), Dennis Souverein [aut, ctb] (ORCID: <https://orcid.org/0000-0003-0455-0336>), Erwin E. A. Hassing [aut, ctb], Aislinn Cook [ctb] (ORCID: <https://orcid.org/0000-0002-9189-7815>), Andrew P. Norgan [ctb] (ORCID: <https://orcid.org/0000-0002-2955-2066>), Anita Williams [ctb] (ORCID: <https://orcid.org/0000-0002-5295-8451>), Annick Lenglet [ctb] (ORCID: <https://orcid.org/0000-0003-2013-8405>), Anthony Underwood [ctb] (ORCID: <https://orcid.org/0000-0002-8547-4277>), Anton Mymrikov [ctb], Bart C. Meijer [ctb], Christian F. Luz [ctb] (ORCID: <https://orcid.org/0000-0001-5809-5995>), Dmytro Mykhailenko [ctb], Eric H. L. C. M. Hazenberg [ctb], Gwen Knight [ctb] (ORCID: <https://orcid.org/0000-0002-7263-9896>), Jane Hawkey [ctb] (ORCID: <https://orcid.org/0000-0001-9661-5293>), Jason Stull [ctb] (ORCID: <https://orcid.org/0000-0002-9028-8153>), Javier Sanchez [ctb] (ORCID: <https://orcid.org/0000-0003-2605-8094>), Jonas Salm [ctb], Judith M. Fonville [ctb], Kathryn Holt [ctb] (ORCID: <https://orcid.org/0000-0003-3949-2471>), Larisse Bolton [ctb] (ORCID: <https://orcid.org/0000-0001-7879-2173>), Matthew Saab [ctb] (ORCID: <https://orcid.org/0009-0008-6626-7919>), Natacha Couto [ctb] (ORCID: <https://orcid.org/0000-0002-9152-5464>), Peter Dutey-Magni [ctb] (ORCID: <https://orcid.org/0000-0002-8942-9836>), Rogier P. Schade [ctb] (ORCID: <https://orcid.org/0000-0002-9487-4467>), Sofia Ny [ctb] (ORCID: <https://orcid.org/0000-0002-2017-1363>), Alex W. Friedrich [ths] (ORCID: <https://orcid.org/0000-0003-4881-038X>), Bhanu N. M. Sinha [ths] (ORCID: <https://orcid.org/0000-0003-1634-0010>), Casper J. Albers [ths] (ORCID: <https://orcid.org/0000-0002-9213-6743>), Corinna Glasner [ths] (ORCID: <https://orcid.org/0000-0003-1241-1328>)",
       "Maintainer": "Matthijs S. Berends <m.s.berends@umcg.nl>",
       "Repository": "CRAN"
     },
@@ -212,7 +214,7 @@
       "NeedsCompilation": "yes",
       "Author": "Gábor Csárdi [aut, cre], Hadley Wickham [ctb], Kirill Müller [ctb], Salim Brüggemann [ctb] (ORCID: <https://orcid.org/0000-0002-5329-5987>), Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
       "Maintainer": "Gábor Csárdi <gabor@posit.co>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -318,7 +320,7 @@
       "NeedsCompilation": "yes",
       "Author": "Hadley Wickham [aut, cre] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Romain François [aut] (ORCID: <https://orcid.org/0000-0002-2444-4226>), Lionel Henry [aut], Kirill Müller [aut] (ORCID: <https://orcid.org/0000-0002-1416-3412>), Davis Vaughan [aut] (ORCID: <https://orcid.org/0000-0003-4777-038X>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "farver": {
       "Package": "farver",
@@ -460,7 +462,7 @@
       "NeedsCompilation": "no",
       "Author": "Teun van den Brand [aut, cre] (ORCID: <https://orcid.org/0000-0002-9335-7468>)",
       "Maintainer": "Teun van den Brand <tahvdbrand@gmail.com>",
-      "Repository": "https://packagemanager.posit.co/cran/latest"
+      "Repository": "CRAN"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -574,7 +576,7 @@
       "NeedsCompilation": "yes",
       "Author": "Jim Hester [aut] (ORCID: <https://orcid.org/0000-0002-2739-7082>), Jennifer Bryan [aut, cre] (ORCID: <https://orcid.org/0000-0002-6983-2759>), Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
       "Maintainer": "Jennifer Bryan <jenny@posit.co>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "gtable": {
       "Package": "gtable",
@@ -656,7 +658,7 @@
       "NeedsCompilation": "yes",
       "Author": "Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Claus O. Wilke [aut] (Original author, ORCID: <https://orcid.org/0000-0002-7470-9261>), Thomas Lin Pedersen [aut, cre] (ORCID: <https://orcid.org/0000-0002-5147-4711>), Posit, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
       "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
-      "Repository": "https://packagemanager.posit.co/cran/latest"
+      "Repository": "CRAN"
     },
     "labeling": {
       "Package": "labeling",
@@ -716,7 +718,7 @@
       "NeedsCompilation": "no",
       "Author": "Lionel Henry [aut, cre], Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "magrittr": {
       "Package": "magrittr",
@@ -747,7 +749,7 @@
       "NeedsCompilation": "yes",
       "Author": "Stefan Milton Bache [aut, cph] (Original author and creator of magrittr), Hadley Wickham [aut], Lionel Henry [cre], Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "pillar": {
       "Package": "pillar",
@@ -804,7 +806,7 @@
       "NeedsCompilation": "no",
       "Author": "Kirill Müller [aut, cre] (ORCID: <https://orcid.org/0000-0002-1416-3412>), Hadley Wickham [aut], RStudio [cph]",
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-      "Repository": "https://packagemanager.posit.co/cran/latest"
+      "Repository": "CRAN"
     },
     "pkgconfig": {
       "Package": "pkgconfig",
@@ -830,58 +832,9 @@
       "NeedsCompilation": "no",
       "Repository": "https://packagemanager.posit.co/cran/latest"
     },
-    "purrr": {
-      "Package": "purrr",
-      "Version": "1.2.2",
-      "Source": "Repository",
-      "Title": "Functional Programming Tools",
-      "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0003-4757-117X\")), person(\"Lionel\", \"Henry\", , \"lionel@posit.co\", role = \"aut\"), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"https://ror.org/03wc8by49\")) )",
-      "Description": "A complete and consistent functional programming toolkit for R.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://purrr.tidyverse.org/, https://github.com/tidyverse/purrr",
-      "BugReports": "https://github.com/tidyverse/purrr/issues",
-      "Depends": [
-        "R (>= 4.1)"
-      ],
-      "Imports": [
-        "cli (>= 3.6.1)",
-        "lifecycle (>= 1.0.3)",
-        "magrittr (>= 1.5.0)",
-        "rlang (>= 1.1.1)",
-        "vctrs (>= 0.6.3)"
-      ],
-      "Suggests": [
-        "carrier (>= 0.3.0)",
-        "covr",
-        "dplyr (>= 0.7.8)",
-        "httr",
-        "knitr",
-        "lubridate",
-        "mirai (>= 2.5.1)",
-        "rmarkdown",
-        "testthat (>= 3.0.0)",
-        "tibble",
-        "tidyselect"
-      ],
-      "LinkingTo": [
-        "cli"
-      ],
-      "VignetteBuilder": "knitr",
-      "Biarch": "true",
-      "Config/build/compilation-database": "true",
-      "Config/Needs/website": "tidyverse/tidytemplate, tidyr",
-      "Config/testthat/edition": "3",
-      "Config/testthat/parallel": "TRUE",
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.3",
-      "NeedsCompilation": "yes",
-      "Author": "Hadley Wickham [aut, cre] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Lionel Henry [aut], Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
-      "Maintainer": "Hadley Wickham <hadley@posit.co>",
-      "Repository": "CRAN"
-    },
     "renv": {
       "Package": "renv",
-      "Version": "1.2.3",
+      "Version": "1.3.1",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Project Environments",
@@ -910,6 +863,7 @@
         "modules",
         "packrat",
         "pak",
+        "pkgload",
         "R6",
         "remotes",
         "reticulate",
@@ -923,12 +877,12 @@
         "webfakes"
       ],
       "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.3",
       "VignetteBuilder": "knitr",
       "Config/Needs/website": "tidyverse/tidytemplate",
       "Config/testthat/edition": "3",
       "Config/testthat/parallel": "true",
       "Config/testthat/start-first": "bioconductor,python,install,restore,snapshot,retrieve,remotes",
+      "Config/roxygen2/version": "8.0.0",
       "NeedsCompilation": "no",
       "Author": "Kevin Ushey [aut, cre] (ORCID: <https://orcid.org/0000-0003-2880-7407>), Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Kevin Ushey <kevin@rstudio.com>",
@@ -984,7 +938,7 @@
       "NeedsCompilation": "yes",
       "Author": "Lionel Henry [aut, cre], Hadley Wickham [aut], mikefc [cph] (Hash implementation based on Mike's xxhashlite), Yann Collet [cph] (Author of the embedded xxHash library), Posit, PBC [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
-      "Repository": "https://packagemanager.posit.co/cran/latest"
+      "Repository": "CRAN"
     },
     "scales": {
       "Package": "scales",
@@ -1032,9 +986,9 @@
     },
     "stringi": {
       "Package": "stringi",
-      "Version": "1.8.7",
+      "Version": "1.8.9",
       "Source": "Repository",
-      "Date": "2025-03-27",
+      "Date": "2026-07-30",
       "Title": "Fast and Portable Character String Processing Facilities",
       "Description": "A collection of character string/text/natural language processing tools for pattern searching (e.g., with 'Java'-like regular expressions or the 'Unicode' collation algorithm), random string generation, case mapping, string transliteration, concatenation, sorting, padding, wrapping, Unicode normalisation, date-time formatting and parsing, and many more. They are fast, consistent, convenient, and - thanks to 'ICU' (International Components for Unicode) - portable across all locales and platforms. Documentation about 'stringi' is provided via its website at <https://stringi.gagolewski.com/> and the paper by Gagolewski (2022, <doi:10.18637/jss.v103.i02>).",
       "URL": "https://stringi.gagolewski.com/, https://github.com/gagolews/stringi, https://icu.unicode.org/",
@@ -1052,13 +1006,13 @@
       "Biarch": "TRUE",
       "License": "file LICENSE",
       "Authors@R": "c(person(given = \"Marek\", family = \"Gagolewski\", role = c(\"aut\", \"cre\", \"cph\"), email = \"marek@gagolewski.com\", comment = c(ORCID = \"0000-0003-0637-6028\")), person(given = \"Bartek\", family = \"Tartanus\", role = \"ctb\"), person(\"Unicode, Inc. and others\", role=\"ctb\", comment = \"ICU4C source code, Unicode Character Database\") )",
-      "RoxygenNote": "7.3.2",
       "Encoding": "UTF-8",
+      "Config/roxygen2/version": "8.0.0",
       "NeedsCompilation": "yes",
-      "Author": "Marek Gagolewski [aut, cre, cph] (<https://orcid.org/0000-0003-0637-6028>), Bartek Tartanus [ctb], Unicode, Inc. and others [ctb] (ICU4C source code, Unicode Character Database)",
+      "Author": "Marek Gagolewski [aut, cre, cph] (ORCID: <https://orcid.org/0000-0003-0637-6028>), Bartek Tartanus [ctb], Unicode, Inc. and others [ctb] (ICU4C source code, Unicode Character Database)",
       "Maintainer": "Marek Gagolewski <marek@gagolewski.com>",
       "License_is_FOSS": "yes",
-      "Repository": "https://packagemanager.posit.co/cran/latest"
+      "Repository": "CRAN"
     },
     "stringr": {
       "Package": "stringr",
@@ -1292,7 +1246,7 @@
       "NeedsCompilation": "yes",
       "Author": "Hadley Wickham [aut], Lionel Henry [aut], Davis Vaughan [aut, cre], data.table team [cph] (Radix sort based on data.table's forder() and their contribution to R's order()), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Davis Vaughan <davis@posit.co>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "viridisLite": {
       "Package": "viridisLite",

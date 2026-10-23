@@ -1,3 +1,7 @@
+# MIC 2.0.2
+
+This version is mainly to address AMR package breaking changes.
+
 # MIC 2.0.0
 
 Compatible with new CRAN release of XGBoost.
